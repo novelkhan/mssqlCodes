@@ -1,0 +1,988 @@
+Video 7: CREATE
+CREATE TABLE employee_info
+(
+	empId INTEGER PRIMARY KEY,
+	empName VARCHAR(20) NOT NULL,
+	empSalary DECIMAL(10, 2) NOT NULL,
+	job VARCHAR(20),/(50)
+	phone INT UNIQUE, /VARCHAR(20 or 50)
+	deptId INTEGER NOT NULL
+);
+
+CREATE TABLE department_info
+(
+	deptId integer not null,
+	deptName varchar(20) not null,
+	deptLocation varchar(50)
+);
+
+CREATE TABLE employee_info
+(
+	empId INTEGER PRIMARY KEY,
+	empName VARCHAR(20) NOT NULL,
+	empSalary DECIMAL(10, 2) NOT NULL,
+	job VARCHAR(20),
+	phone VARCHAR(20) UNIQUE,
+	deptId INTEGER NOT NULL
+);
+
+
+
+Video 8: INSERT
+INSERT INTO employee_info VALUES
+( 01, 'ADAM', 25000, 'Jr. Developer', '9879879879', 10);
+
+INSERT INTO employee_info (empId, empName, empSalary)
+VALUES (02, 'Smith', 38000);
+
+INSERT INTO employee_info (empId, empName, empSalary, deptId)
+VALUES (02, 'Smith', 38000, 5);
+
+
+Video 9: SELECT
+SELECT * FROM employee_info;
+SELECT empName, empSalary FROM employee_info;
+SELECT * FROM dbo.employee_info;
+
+
+Video 10: UPDATE
+UPDATE employee_info
+SET empSalary = empSalary + 1000;
+SELECT * FROM employee_info;
+
+UPDATE employee_info
+SET job = 'Tester'
+WHERE empName = 'Smith';
+
+UPDATE employee_info
+SET phone = '78787878787', deptId = 20
+WHERE empId = 2;
+
+Video 11: DELETE
+SELECT * FROM dbo.employee_info;
+
+DELETE FROM employee_info
+WHERE deptId = 10;
+
+DELETE FROM dbo.employee_info;
+
+
+
+Video 12:  ORDER BY
+SELECT * FROM dbo.employee_info;
+SELECT * FROM dbo.employee_info ORDER BY empSalary;
+SELECT * FROM employee_info ORDER BY empSalary DESC;
+SELECT empName FROM employee_info ORDER BY empName;
+SELECT empName FROM employee_info ORDER BY empName DESC;
+
+
+
+Video 13: WHERE
+SELECT * FROM employee_info;
+SELECT * FROM employee_info WHERE job = 'Developer';
+SELECT empName, empSalary FROM employee_info WHERE job = 'Developer';
+UPDATE employee_info SET empSalary = empSalary + 5000 WHERE deptId = 20;
+DELETE FROM employee_info WHERE deptId = 30;
+
+
+
+Video 14: Aggregate Functions
+USE employeeDB; 
+SELECT * FROM employee_info; 
+SELECT SUM(empSalary) FROM employee_info; 
+SELECT AVG(empSalary) FROM employee_info; 
+SELECT MAX(empSalary) FROM employee_info; 
+SELECT MIN(empSalary) FROM employee_info; 
+SELECT COUNT(empName) FROM employee_info;
+INSERT INTO employee_info (empId, empName, empSalary, deptId)
+VALUES (02, 'ROB', 15000, 6);
+
+
+Video 15: Numeric Functions 
+SELECT ABS(-10); 
+SELECT CEILING(76.12); 
+SELECT FLOOR(76.12); 
+SELECT SIGN(15); 
+SELECT SIGN(-10); 
+SELECT SIGN(15), SIGN(-10), SIGN(0);
+SELECT SQUARE(5), SQRT(81), PI(), COS(30), SIN(90), TAN(45);
+SELECT EXP(1); 
+
+SELECT ROUND(123.456, 2);
+
+
+
+Video 16: String Functions 
+SELECT LEN('DATABASE'); 
+SELECT empName, LEN(empName) FROM employee_info; SELECT UPPER('this is a statement');
+SELECT empName, LOWER(empName) FROM employee_info; SELECT LTRIM('   anystring'), RTRIM(' anystring  ');
+SELECT SUBSTRING('MICROSOFT', 6, 3);
+SELECT REPLACE('MICROSOFT', 'MICRO', 'MAJOR');
+SELECT REPLICATE('DUMMY', 5);
+
+
+
+
+Video 17: Boolean Operators 
+CREATE TABLE tbl_user_login( 
+		userId INT PRIMARY KEY IDENTITY,
+		username VARCHAR(50) NOT NULL UNIQUE,
+		email VARCHAR(100) NOT NULL UNIQUE,
+		password VARCHAR(50) NOT NULL 
+);
+
+INSERT INTO tbl_user_login (username, email, password) VALUES 
+		('ironman', 'tony@stark.com', 'tony123'), 
+		('captain', 'steve@captain.com', 'steve456'),
+		('spidy', 'peter@parker.com', 'peter123'),
+		('wonder', 'wonder@woman.com', 'wonder123');
+
+
+SELECT * FROM tbl_user_login;
+SELECT * FROM tbl_user_login WHERE email = 'steve@captain.com' AND password = 'steve456';
+SELECT password FROM tbl_user_login WHERE username = 'spidy' OR email = 'peter@peter.com';
+SELECT * FROM tbl_user_login WHERE NOT username = 'wonder';
+SELECT * FROM tbl_user_login WHERE username != 'wonder';
+
+
+
+
+Video 18: Date and Time Functions
+SELECT GETDATE();
+SELECT GETDATE() AS TODAY_DATE;
+SELECT SYSDATETIME() AS TODAY_DATE;
+SELECT CURRENT_TIMESTAMP AS TODAY_DATE;
+
+SELECT DATENAME(MONTH, CURRENT_TIMESTAMP) AS 'MONTH';
+SELECT DATENAME(YEAR, CURRENT_TIMESTAMP) AS 'YEAR';
+SELECT DATENAME(HOUR, CURRENT_TIMESTAMP) AS 'HOUR';
+SELECT DATEDIFF(YEAR, 'January 6 1995', CURRENT_TIMESTAMP) AS "AgeInYears";
+SELECT DATEDIFF(MONTH, 'January 6 1995', CURRENT_TIMESTAMP) AS "AgeInMonths";
+SELECT DATEDIFF(YEAR, 'January 10 1997', 'December 31 2019') AS "AgeInYears"; 
+SELECT DATEADD(MONTH, 100, CURRENT_TIMESTAMP) AS "100MonthsFromNow";
+
+
+
+
+
+Video 19: GROUP BY Clause
+SELECT * FROM employee_info;
+SELECT DEPTNO FROM employee_info GROUP BY DEPTNO;
+SELECT DEPTNO, SUM(SALARY) AS 'TOTAL SALARY' FROM employee_info GROUP BY DEPTNO;
+SELECT DEPTNO, MIN(SALARY) AS 'MIN SALARY' FROM employee_info GROUP BY DEPTNO;
+SELECT DEPTNO, ROUND(AVG(SALARY), 2) AS 'AVG SALARY' FROM employee_info GROUP BY DEPTNO;
+
+
+
+
+Video 20: HAVING Clause
+SELECT * FROM employee_info;
+SELECT DEPTNO, SUM(SALARY) AS 'TOTAL SALARY' FROM employee_info GROUP BY DEPTNO HAVING DEPTNO = 20;
+SELECT DEPTNO, SUM(SALARY) AS 'TOTAL SALARY' FROM employee_info WHERE DEPTNO = 20 GROUP BY DEPTNO;
+
+SELECT DEPTNO, SUM(SALARY) AS 'TOTAL SALARY' FROM employee_info GROUP BY DEPTNO HAVING SUM(SALARY) BETWEEN 10000 AND 15000;
+SELECT DEPTNO, SUM(SALARY) AS 'TOTAL SALARY' FROM employee_info GROUP BY DEPTNO HAVING SUM(SALARY) > 80000;
+
+
+
+
+
+
+Video 21: TOP Clause
+SELECT * FROM employee_info;
+select TOP(3) salary from employee_info order by salary desc;
+select TOP(3) salary from employee_info order by salary;
+
+Video 22: Copying Data
+USE EMP_DB;
+SELECT * FROM EMP_INFO;
+CREATE DATABASE SAMPLE_EMP_DB;
+USE SAMPLE_EMP_DB;
+SELECT * INTO EMP_DETAILS FROM EMPDB.dbo.EMP_INFO;
+SELECT * FROM EMP_DETAILS;
+
+Video 23: ALTER Statement
+USE EMP_DB;
+CREATE TABLE emp_details (id int, name varchar(10));
+SELECT * FROM emp_details;
+ALTER TABLE emp_details ADD salary decimal;
+
+insert into emp_details values (1,'Ishwar',25000);
+ALTER TABLE emp_details ADD phone varchar(10) null;
+ALTER TABLE emp_details ADD project_completed int not null DEFAULT 5;
+ALTER TABLE emp_details ADD projectId integer null CONSTRAINT pId_unique_key UNIQUE;
+select * from emp_details;
+insert into emp_details values (2, 'steve', 50000, '9867543210', default, 4);
+
+create table company_info (id int);
+ALTER TABLE company_info
+ADD revenue decimal(10,2) null,
+projectId integer CONSTRAINT projId_pk PRIMARY KEY;
+SELECT * FROM company_info;
+
+
+
+
+Video 24: ALTER Statement - 2
+SELECT * INTO EMP_INFO_BKCP FROM EMP_DB.DBO.EMP_INFO;
+SELECT * INTO EMPDETAILS_BKCP FROM EMP_DB.DBO.EMP_DETAILS;
+SELECT * INTO COMPANY_INFO_BKCP FROM EMP_DB.DBO.COMPANY_INFO;
+SELECT * FROM EMP_INFO;
+
+ALTER TABLE EMP_INFO DROP COLUMN DEPTID;
+SELECT * FROM EMP_DETAILS;
+ALTER TABLE EMP_DETAILS DROP CONSTRAINT pId_unique_key;
+SELECT * FROM company_info;
+ALTER TABLE COMPANY_INFO DROP CONSTRAINT projId_pk COLUMN revenue, projectId;
+
+
+
+Video 25: ALTER Statement - 3
+USE EMP_DB;
+CREATE TABLE CUSTOMER(ACCNO INT, CUST_NAME CHAR(100));
+ALTER TABLE CUSTOMER ALTER COLUMN CUST_NAME VARCHAR(100);
+ALTER TABLE CUSTOMER ALTER COLUMN CUST_NAME VARCHAR(50);
+
+SELECT * FROM CUSTOMER;
+INSERT INTO CUSTOMER VALUES (123456, 'Ishwar Academy');
+ALTER TABLE CUSTOMER ALTER COLUMN CUST_NAME VARCHAR(45);
+ALTER TABLE CUSTOMER ALTER COLUMN CUST_NAME CHAR(50);
+
+
+
+
+
+
+
+Video 26: Aliases
+USE COMPANY_DB;
+SELECT * FROM EMPLOYEE;
+SELECT emp_salary FROM employee;
+SELECT emp_salary AS 'Employee Salary' FROM employee;
+SELECT emp_salary 'Employee Salary' FROM employee;
+SELECT emp_name Name FROM employee;
+SELECT emp_name AS Name FROM employee;
+SELECT * FROM employee;
+SELECT emp_id AS 'EMPLOYEE ID', emp_name AS 'EMPLOYEE NAME', emp_salary AS 'EMPLOYEE SALARY', emp_deptId AS 'DEPARTMENT ID' FROM employee;
+
+
+
+Video 28: Inner Join
+USE COMPANY_DB;
+SELECT * FROM employee;
+SELECT * FROM department;
+SELECT emp_id, emp_name, emp_salary, dept_name, dept_location FROM employee INNER JOIN department ON employee.emp_deptid = department.dept_id;
+SELECT e.emp_id, e.emp_name, e.emp_salary, d.dept_name, d.dept_location FROM employee e INNER JOIN department d ON e.emp_deptid = d.dept_id;
+
+
+
+
+
+Video 29: Left Outer Join
+USE COMPANY_DB;
+SELECT emp_id, emp_name, emp_salary, dept_name, dept_location FROM employee LEFT OUTER JOIN department ON employee.emp_deptid = department.dept_id;
+SELECT e.emp_id, e.emp_name, e.emp_salary, d.dept_name, d.dept_location FROM employee e LEFT OUTER JOIN department d ON e.emp_deptid = d.dept_id;
+
+
+
+
+Video 30: Right Outer Join
+USE COMPANY_DB;
+SELECT emp_id, emp_name, emp_salary, dept_name, dept_location FROM employee RIGHT OUTER JOIN department ON employee.emp_deptid = department.dept_id;
+SELECT e.emp_id, e.emp_name, e.emp_salary, d.dept_name, d.dept_location FROM employee e RIGHT OUTER JOIN department d ON e.emp_deptid = d.dept_id;
+
+SELECT e.emp_id, e.emp_name, e.emp_salary, d.dept_name, d.dept_location FROM department d RIGHT OUTER JOIN employee e ON e.emp_deptid = d.dept_id;
+
+
+
+
+Video 31: Full Outer Join
+USE COMPANY_DB;
+SELECT emp_id, emp_name, emp_salary, dept_name, dept_location FROM employee e FULL OUTER JOIN department d ON e.emp_deptid = d.dept_id;
+SELECT e.emp_id, e.emp_name, e.emp_salary, d.dept_name, d.dept_location FROM department d FULL OUTER JOIN employee e ON e.emp_deptid = d.dept_id;
+
+
+
+
+Video 32: Subquery
+USE COMPANY_DB;
+SELECT * FROM employee;
+SELECT emp_name, emp_salary FROM employee WHERE emp_salary > (SELECT emp_salary FROM employee WHERE emp_name = 'Mike');
+SELECT emp_name, emp_salary FROM employee WHERE emp_salary > (SELECT emp_salary FROM employee WHERE emp_name = 'ADAM') AND emp_deptid = (SELECT emp_deptid FROM employee WHERE emp_name = 'Adam');
+
+
+
+
+
+
+
+Video 34 - Variables
+USE COMPANY_DB;
+DECLARE @name VARCHAR(50);
+SET @name = 'Ishwar';
+SELECT @name;
+SELECT @name = 'Academy';
+SELECT @name;
+DECLARE @name VARCHAR(50), @age INT;
+SELECT @name = 'Iswar', @age = 25;
+SELECT @name, @age;
+
+DECLARE @name VARCHAR(50), @age INT, @salary DECIMAL(7,2) = 45000;
+SELECT @name = 'Ishtwar', @age = 25;
+SELECT @name as 'Name', @age as 'Age', @salary as 'Salary';
+
+DECLARE @number INT = 100;
+SET @number += 50;
+SELECT @number as 'Number';
+SET @number = @number - 50;
+SELECT @number as 'Number';
+SET @number *= 50;
+SELECT @number as 'Number';
+
+SELECT * FROM employee;
+DECLARE @name VARCHAR(50), @salary DECIMAL(7,2);
+SELECT @name = emp_name, @salary = emp_salary FROM employee;
+SELECT @name as 'Name', @salary as 'Salary';
+
+
+
+
+
+Video 37: GO Command
+USE COMPANY_DB;
+GO
+DECLARE @Name VARCHAR(50);
+SELECT @Name = 'Microsoft';
+GO
+DECLARE @Name VARCHAR(50);
+SELECT @Name 'Microsoft';
+SELECT @Name as 'Name';
+GO
+DECLARE @Name VARCHAR(50);
+SELECT @Name = 'GOOGLE';
+SELECT @Name as 'NAME';
+GO
+
+
+
+
+
+Video 39: BEGIN...END
+USE COMPANY_DB;
+GO
+SELECT * FROM employee;
+GO
+BEGIN
+    DECLARE @name VARCHAR(50), @salary INTEGER, @DeptID VARCHAR(10) = 'D3';
+    SELECT @name = emp_name, @salary = emp_salary FROM employee WHERE emp_deptid = @DeptID;
+    SELECT @name as 'NAME', @salary as 'SALARY';
+
+	BEGIN
+    	PRINT 'Department ID:' + @DeptID;
+	END
+END
+GO
+
+
+
+
+Video 40: IF...ELSE
+BEGIN
+    DECLARE @salary DECIMAL;
+    SELECT @salary = AVG(emp_salary) FROM employee;
+    SELECT @salary as 'Avg. Salary';
+    IF @salary > 85000
+    BEGIN
+        PRINT 'Avg salary is greater than 85000';
+    END
+    ELSE
+    BEGIN
+        PRINT 'Avg salary is less than 85000';
+    END
+END
+GO
+
+
+
+
+Video 41: WHILE Loop
+USE COMPANY_DB;
+SELECT * FROM COMPANY_DB.dbo.employee;
+BEGIN
+    WHILE (SELECT MIN(emp_salary) FROM employee) < 90000
+    BEGIN
+        UPDATE employee SET emp_salary = emp_salary + 10000;
+        PRINT 'ALL SALARIES ARE UPDATED';
+        SELECT * FROM employee;
+        IF (SELECT MIN(emp_salary) FROM employee) >= 90000
+        BEGIN
+            PRINT 'MIN. SALARY IS GREATER OR EQUAL TO 90000.';
+            BREAK;
+        END
+    END
+END
+GO
+
+
+
+
+
+
+Video 42: TRY...CATCH
+BEGIN TRY
+    SELECT 100/5 AS 'Division';
+END TRY
+BEGIN CATCH
+    SELECT ERROR_MESSAGE() AS 'Error Message';
+END CATCH
+
+BEGIN TRY
+    SELECT 100/0 AS 'Division';
+END TRY
+BEGIN CATCH
+END CATCH
+
+BEGIN TRY
+    SELECT 100/0 AS 'Division';
+END TRY
+BEGIN CATCH
+    SELECT ERROR_MESSAGE() AS 'Error Message', ERROR_LINE() AS 'Error Line', ERROR_NUMBER() AS 'Error Number', ERROR_PROCEDURE() AS 'Procedure Name';
+END CATCH
+
+
+
+
+
+Video 43: WAITFOR in TSQL
+SELECT GETDATE() AS 'CURRENT TIME';
+GO
+BEGIN
+    WAITFOR TIME '13:51:00'
+    SELECT * FROM COMPANY_DB.dbo.employee;
+END
+GO
+SELECT GETDATE() AS 'CURRENT TIME';
+GO
+SELECT GETDATE() AS 'CURRENT TIME';
+GO
+BEGIN
+    WAITFOR DELAY '00:00:20'
+    SELECT * FROM COMPANY_DB.dbo.employee;
+END
+GO
+SELECT GETDATE() AS 'CURRENT TIME';
+GO
+
+
+
+
+
+Video 45: CREATE STORED PROCEDURE
+USE COMPANY_DB;
+GO
+CREATE PROCEDURE proc_allEmployeeDetails
+AS
+BEGIN
+    SELECT * FROM employee;
+END;
+GO
+EXECUTE proc_allEmployeeDetails;
+
+
+
+
+Video 46: Parameterized Stored Procedure
+SELECT * FROM employee;
+exec dbo.proc_allEmployeeDetails;
+SELECT * FROM department;
+USE COMPANY_DB;
+GO
+CREATE PROCEDURE proc_employeeDetailsLocationWise (@location AS VARCHAR(100))
+AS
+BEGIN
+    SELECT * FROM employee e inner join department d
+    ON e.emp_deptid = d.dept_id
+    WHERE d.dept_location = @location;
+END;
+GO
+
+SELECT * FROM employee e inner join department d
+ON e.emp_deptid = d.dept_id
+WHERE d.dept_location = 'mumbai';
+GO
+EXEC proc_employeeDetailsLocationWise @location = 'mumbai';
+
+
+
+
+Video 47: Alter (Modify) a Stored Procedure
+USE COMPANY_DB;
+GO
+ALTER PROCEDURE proc_allEmployeeDetails
+AS
+BEGIN
+    SELECT e.emp_name, e.emp_salary, d.dept_location
+    FROM employee e INNER JOIN department d
+    ON e.emp_deptid = d.dept_id;
+END;
+GO
+EXEC proc_allEmployeeDetails;
+GO
+EXECUTE proc_employeeDetailsLocationWise @location = 'new york';
+
+
+
+Video 48: Rename Stored Procedures
+exec sp_rename 'proc_allEmployeeDetails', 'proc_displayEmployeeDetails';
+SELECT * FROM sys.sql_modules;
+
+
+
+Video 50: Scalar-Valued Functions
+SELECT * FROM employee;
+CREATE FUNCTION salary(@name as VARCHAR(50))
+RETURNS decimal
+BEGIN
+    DECLARE @sal decimal;
+    SELECT @sal = emp_salary from employee
+    WHERE emp_name = @name;
+    RETURN @sal;
+END
+USE:
+SELECT dbo.salary('MIKE') as 'Employee Salary';
+
+
+
+
+Video 51: Table-Valued Functions
+CREATE FUNCTION getAllEmployees(@salary decimal)
+RETURNS TABLE
+AS
+RETURN
+    			SELECT * FROM employee WHERE emp_salary = @salary;
+Use:
+SELECT * FROM dbo.getAllEmployees(80000);
+select * from employee;
+
+CREATE FUNCTION getEmployees(@id VARCHAR(50))
+RETURNS @Result TABLE
+(
+    ID int, NAME varchar(50), SALARY decimal, DEPTID varchar(50)
+)
+AS
+BEGIN
+    INSERT INTO @Result
+    SELECT * FROM employee WHERE emp_deptid = @id;
+    RETURN;
+END;
+Use:
+SELECT * FROM getEmployees('d1');
+
+
+Video 52: Modify, Delete, Rename, View User-defined Function
+select * from [dbo].[getAllEmployees](80000)
+
+
+
+Video 54: DML Trigger - 1
+A trigger is a type of stored procedure, that automatically runs when an event occurs in the database server.
+SELECT * FROM employee;
+
+CREATE TRIGGER tr_message
+ON employee
+AFTER INSERT
+AS
+BEGIN
+    PRINT 'Welcome to Our Company..!';
+END;
+
+INSERT INTO employee values(1007, 'Rahul', 50000, 'd3');
+
+
+
+
+Video 55: DML Trigger - 2
+SELECT * FROM employee;
+SELECT * FROM employeeLogs;
+
+CREATE TABLE employeeLogs
+(id int, name varchar(255), salary decimal, deptid varchar(255),
+modifiedBy varchar(255), modifiedOn date);
+
+CREATE TRIGGER tr_employee_after_insert
+ON employee
+AFTER INSERT
+AS
+BEGIN
+    INSERT INTO employeeLogs
+    SELECT emp_id, emp_name, emp_salary, emp_deptid, 'ishwar', getdate()
+    FROM inserted;
+END;
+
+insert into employee values (1008, 'mike', 45000, 'd2');
+
+CREATE TRIGGER tr_employee_after_update
+ON employee
+AFTER UPDATE
+AS
+BEGIN
+    INSERT INTO employeeLogs
+    SELECT emp_id, emp_name, emp_salary, emp_deptid, 'ishwar', getdate()
+    FROM inserted;
+END;
+
+UPDATE employee SET emp_salary = 80000 where emp_id = 1007;
+
+CREATE TRIGGER tr_employee_after_delete
+ON employee
+AFTER DELETE
+AS
+BEGIN
+    INSERT INTO employeeLogs
+    SELECT emp_id, emp_name, emp_salary, emp_deptid, 'ishwar', getdate()
+    FROM deleted;
+END;
+
+delete from employee where emp_name = 'mike';
+
+
+
+
+Video 56: DML Trigger Part - 3
+select * from employeeLogs;
+select * from employee;
+
+CREATE OR ALTER TRIGGER tr_employee_allDMLOperations
+ON employee
+AFTER INSERT, DELETE, UPDATE
+AS
+BEGIN
+    --INSERT
+    IF EXISTS(SELECT * FROM inserted) AND NOT EXISTS(SELECT * FROM deleted)
+        INSERT INTO employeeLogs
+        SELECT emp_id, emp_name, emp_salary, emp_id, 'ishwar', getdate()
+        FROM deleted
+    --UPDATE
+    ELSE IF EXISTS(SELECT * FROM inserted) AND EXISTS(SELECT * FROM deleted)
+        INSERT INTO employeeLogs
+        SELECT emp_id, emp_name, emp_salary, emp_id, 'ishwar', getdate()
+        FROM deleted
+    --DELETE
+    ELSE IF EXISTS(SELECT * FROM deleted) AND NOT EXISTS(SELECT * FROM inserted)
+        INSERT INTO employeeLogs
+        SELECT emp_id, emp_name, emp_salary, emp_id, 'ishwar', getdate()
+        FROM deleted
+    ELSE
+    BEGIN
+        PRINT 'NOTHING CHANGED...'
+        RETURN
+    END
+END
+
+select * from employee;
+select * from employeeLogs;
+insert into employee values(1008, 'vijay', 5000, 'd2');
+update employee set emp_salary = 90000 where emp_id = 1008
+delete from employee where emp_name = 'mike';
+
+Rename:-
+    //
+
+
+
+
+Video 57: DDL Trigger Part - 1
+CREATE OR ALTER TRIGGER tr_onTableCreate
+ON DATABASE
+FOR CREATE_TABLE, DROP_TABLE
+AS
+BEGIN
+    PRINT 'New table is created or dropped successfully.';
+END
+
+CREATE TABLE sampleTable(id int, name varchar(20));
+DROP TABLE sampleTable;
+
+
+
+
+
+Video 58: DDL Trigger Part - 2
+CREATE OR ALTER TRIGGER tr_TableRename
+ON DATABASE
+FOR RENAME
+BEGIN
+    PRINT 'Table is Renamed!';
+END;
+
+sp_rename 'newtemp', 'triggerdemo';
+
+CREATE TABLE ddl_logs
+(
+    id INT IDENTITY PRIMARY KEY,
+    event_data XML,
+    performed_by SYSNAME,
+    event_type VARCHAR(200)
+);
+
+CREATE OR ALTER TRIGGER tr_ddlEventTrigger
+ON DATABASE
+FOR CREATE_TABLE, RENAME, DROP_TABLE
+AS
+BEGIN
+    INSERT INTO ddl_logs(event_data, performed_by, event_type)
+    VALUES (EVENTDATA(), USER, EVENTDATA().value('(/EVENT_INSTANCE/EventType)[1]', 'varchar(max)'));
+END;
+
+sp_rename 'triggerdemo', 'triggereventcapture';
+
+SELECT * FROM ddl_logs;
+
+CREATE TABLE demo(id int, value varchar(20));
+drop table demo;
+
+
+
+
+Video 59: Merge Statement
+Merge : Merge is a logical combination of an insert and an update.
+
+CREATE DATABASE airlines;
+CREATE TABLE flightPassengers
+(
+    flightId INT IDENTITY PRIMARY KEY,
+    firstName VARCHAR(20) NOT NULL,
+    flightCode VARCHAR(20) NOT NULL,
+    flightDate DATE NOT NULL,
+    seat VARCHAR(5)
+);
+
+INSERT INTO flightPassengers (firstName, flightCode, flightDate, seat)
+VALUES ('SMITH', 'SQL2022', GETDATE(), '7F'),
+       ('ADAM', 'SQL2022', GETDATE(), '20A'),
+       ('MIKE', 'SQL2022', GETDATE(), '4B');
+
+CREATE TABLE checkIn
+(
+    firstName VARCHAR(20) NOT NULL,
+    flightCode VARCHAR(20) NOT NULL,
+    flightDate DATE NOT NULL,
+    seat VARCHAR(5)
+);
+
+INSERT INTO checkIn (firstName, flightCode, flightDate, seat)
+VALUES ('SMITH', 'SQL2022', GETDATE(), '7E'),
+       ('ADAM', 'SQL2022', GETDATE(), '2B'),
+       ('MIKE', 'SQL2022', GETDATE(), '17A');
+
+SELECT * FROM flightPassengers;
+SELECT * FROM checkIn;
+
+MERGE flightPassengers F
+USING checkIn C
+ON C.firstName = F.firstName
+AND C.flightCode = F.flightCode
+AND C.flightDate = F.flightDate
+WHEN MATCHED
+    THEN UPDATE SET F.seat = C.seat
+WHEN NOT MATCHED BY TARGET
+    THEN INSERT (firstName, flightCode, flightDate, seat)
+    VALUES (firstName, flightCode, flightDate, seat)
+WHEN NOT MATCHED BY SOURCE
+    THEN DELETE;
+
+
+
+
+Video 60: Introduction to Index
+Index : In general, Index is used to measure the performance.
+
+CREATE TABLE employee
+(
+    ID INT PRIMARY KEY,
+    NAME VARCHAR(50),
+    SALARY DECIMAL,
+    LOCATION VARCHAR(50);
+);
+
+insert into employee values (1003, 'SMITH', 65000, 'USA'),
+                            (1001, 'JAMES', 30000, 'INDIA'),
+                            (1002, 'MIKE', 48000, 'INDIA'),
+                            (1004, 'JOHN', 55000, 'USA');
+
+SELECT * FROM employee;
+
+DROP TABLE employee;
+
+Rename: ---> Remove (and execute all commands)
+
+CREATE INDEX idx_employee_salary
+ON employee(SALARY ASC);
+
+SELECT * FROM employee WHERE SALARY > 50000;
+
+
+
+
+
+
+
+
+
+Video 61: Clustered Index
+A clustered index determines the physical order of the data in a table, hence, a table can have only one clustered index.
+When a clustered index is created, the database engine sorts the data in the table based on the defined index key(s) and stores the table in that order.
+
+SELECT * FROM employee;
+
+CREATE CLUSTERED INDEX idx_employee_name
+ON employee(name asc);
+
+CREATE CLUSTERED INDEX idx_employee_loc
+ON employee(id desc, location asc);
+
+
+
+Video 62: Nonclustered Index
+A nonclustered index does not change the physical order of the rows in the table
+
+SELECT * FROM employee;
+
+CREATE NONCLUSTERED INDEX idx_employee_name
+ON employee(NAME ASC);
+
+select * from employee where name = 'mike';
+
+
+
+
+Video 63: Unique Index
+A unique index ensures that the index key contains no duplicate values
+
+CREATE TABLE department
+(
+    did int primary key,
+    dname varchar(50),
+    dloc varchar(50)
+);
+
+INSERT INTO department VALUES (2, 'SALES', 'MUMBAI'),
+                              (1, 'ACCOUNTS', 'PUNE');
+
+SELECT * FROM department;
+
+ALTER TABLE department
+ADD CONSTRAINT UQ_department_dname / UQ_department_did
+UNIQUE (dname) /CLUSTERED(did);
+
+CREATE UNIQUE NONCLUSTERED INDEX idx_department_dloc
+ON department(dloc);
+
+
+
+
+Video 64: View
+A view is a virtual table whose contents are defined by a query.
+A view does not require any storage in a database.
+
+SELECT * FROM employee;
+SELECT * FROM department;
+
+-- -- Display employee name and salary
+select name, salary from employee;
+
+-- -- Display employee details whose department is sales
+select name, salary, location, dname from employee e inner join department d
+on e.deptid = d.did where d.dname = 'sales';
+
+CREATE VIEW v_EmpNameSalary
+AS select name, salary from employee;
+
+SELECT * FROM v_EmpNameSalary;
+
+CREATE VIEW v_EmpDetailsWithDeptName
+AS select name, salary, location, dname from employee e inner join department d
+on e.deptid = d.did where d.dname = 'sales';
+
+SELECT * FROM v_EmpDetailsWithDeptName;
+
+-- -- Display employee details without salary
+select name, location, dname from employee e inner join department d
+on e.deptid = d.did;
+
+CREATE VIEW v_EmployeePublicData
+AS select name, location, dname from employee e inner join department d
+on e.deptid = d.did;
+
+select * from v_EmployeePublicData;
+
+-- -- Display employee who works for INDIA only
+select * from employee where location = 'india';
+
+CREATE VIEW v_EmpWorksForIndia
+AS select * from employee where location = 'india';
+
+SELECT * FROM v_EmpWorksForIndia;
+
+sp_helptext v_EmpWorksForIndia;
+
+
+
+
+
+
+Video 65: CTE (Common Table Expression)
+CTE is a temporary named result set
+
+SELECT * FROM employee;
+
+WITH cte_avgSalary AS
+(
+    SELECT AVG(salary) as avgSalary
+    FROM employee
+)
+SELECT avgSalary FROM cte_avgSalary;
+
+SELECT DEPTID FROM employee;
+
+WITH cte_empCount (deptid, employeeCount) AS
+(
+    SELECT deptid, count(*) as employeeCount
+    FROM employee GROUP BY deptid
+)
+SELECT dname, employeeCount
+FROM department JOIN cte_empCount
+ON department.did = cte_empCount.deptid;
+
+
+
+
+Video 66: TCL (Commit, Rollback, Save)
+Transaction Control Language
+
+CREATE TABLE sampleTable(id int);
+
+INSERT INTO sampleTable values (1);
+INSERT INTO sampleTable values (2);
+
+select * from sampleTable;
+
+BEGIN TRANSACTION;
+    INSERT INTO sampleTable values (3);
+    INSERT INTO sampleTable values (4);
+ROLLBACK;
+
+BEGIN TRANSACTION;
+    INSERT INTO sampleTable values (3);
+    INSERT INTO sampleTable values (4);
+SAVE TRANSACTION A;
+    INSERT INTO sampleTable values (5);
+    INSERT INTO sampleTable values (6);
+SAVE TRANSACTION B;
+
+ROLLBACK TRANSACTION A;
+
+SELECT * FROM sampleTable;
+
+COMMIT;
+
