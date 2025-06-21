@@ -1,3 +1,88 @@
+CREATE DATABASE SAMPLE_DB;
+
+USE SAMPLE_DB;
+
+Video 4: Data Types (Video 4)
+
+Numeric
+├── INTEGER
+│   ├── TINYINT
+│   ├── INT
+│   ├── REAL
+│   ├── FLOAT
+│   └── MONEY
+│       ├── SMALLMONEY
+├── DECIMAL
+├── NUMERIC
+├── SMALLINT
+└── BIGINT
+
+Character
+├── CHAR
+│   ├── VARCHAR
+│   ├── NCHAR
+│   └── NVARCHAR
+├── TEXT
+└── BINARY
+
+Temporal
+├── DATE
+├── TIME
+├── DATETIME
+│   ├── SMALLDATETIME
+│   └── DATETIME2
+│       └── DATETIMEOFFSET
+├── TIMESTAMP
+└── DAT
+
+Miscellaneous
+├── BIT
+├── SQL_VARIANT
+├── UNIQUEIDENTIFIER
+│   ├── XML
+│   └── TABLE
+│       └── Binary Data Types
+│           └── Large Object Data Types
+
+Video 5:  - INTEGRITY CONSTRAINTS
+
+├── UNIQUE
+├── NOT NULL
+├── PRIMARY KEY
+├── FOREIGN KEY
+├── DEFAULT
+└── CHECK
+
+Video 6:  SQL STATEMENTS INTRODUCTIONS
+
+├── DDL Statements : Used to recreate, modify the object
+│   └── structure (database, tables, view, triggers)
+│       ├── Commands:- CREATE, ALTER, DROP,
+│       │   ├── TRUNCATE
+│       │   └── RENAME
+
+├── DML Statements; Used to insert data, modify existing data,
+│   └── removing and retrieving data from the tables.
+│       ├── Commands:- INSERT, UPDATE, DELETE, SELECT
+
+
+
+TCL Statements: Used to save data/undo/forced transactions performed
+on the database, until bitop
+
+├── Commands:- COMMIT, ROLLBACK, SAVE TRANSACTION
+
+DCL Statements: Used to create roles, permissions, referential integrity
+and as well it is used to control access to database by securing it:
+
+├── Commands:- GRANT, REVOKE
+
+
+
+
+
+
+
 Video 7: CREATE
 CREATE TABLE employee_info
 (
